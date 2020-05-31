@@ -27,7 +27,7 @@ def returnArea(x1,x2,y1,y2):
     return (x2-x1) * (y2-y1)
 
 
-def main_function(video_path):
+def main_function(video_path, save_path):
     cap = cv2.VideoCapture(video_path)
     frame_number = cap.get(cv2.CAP_PROP_FRAME_COUNT)
     fps = int(cap.get(cv2.CAP_PROP_FPS))
@@ -49,7 +49,7 @@ def main_function(video_path):
         frame_counter += 1
         ret, frame = cap.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        cv2.imshow('frame',frame)
+        #cv2.imshow('frame',frame)
         
         faces = detector(gray)
 
@@ -79,7 +79,7 @@ def main_function(video_path):
                     actual_face = face
 
             cv2.rectangle(frame,(x1_max,y1_max),(x2_max,y2_max),green,3)
-            cv2.imshow("Frame", frame)
+            #cv2.imshow("Frame", frame)
 
             #Conseguir los 68 puntos del rostro predominante de este frame
             landmarks = predictor(gray, actual_face)
@@ -104,7 +104,7 @@ def main_function(video_path):
 
     temp = []
     #Iniciación del excel
-    workbook = xlsxwriter.Workbook(video_path+'.xlsx')
+    workbook = xlsxwriter.Workbook(save_path+'.xlsx')
     worksheet = workbook.add_worksheet()
     row = 2
     time_frames = []
@@ -165,11 +165,16 @@ def main_function(video_path):
     prediction_points = temp
 
 #path = 'my_directory/'
-path = 'dummy_dataset/'
+path = "C:/Users/Ansset Rojas G/Desktop/UPC/Ciclo VIII/TDP/IA de la verdad/MU3D-Package/Videos/"
+path_result = 'Results/'
 entries = os.listdir(path)
+
+
 
 for entry in entries:
     print(entry)
     new_path = path + entry
-    main_function(new_path)
+    save_path = path_result + entry
+    main_function(new_path, save_path)
     print("=================================================")
+print("Succes")
