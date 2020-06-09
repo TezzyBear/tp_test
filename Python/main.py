@@ -15,7 +15,7 @@ predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 #Timer variables
 time_passed = 0
 cam_initialized = False
-cam_uptime = 5 #in seconds
+cam_uptime = 10 #in seconds
 
 #Frame variables
 n_frames_segundos = 5
@@ -85,16 +85,16 @@ while True:
 
         i = i +1
         
-        
+        '''
         landmarks = predictor(gray, face)
         face_points = []
         for i in range(0, 68):       
             cv2.circle(frame, (landmarks.part(i).x,landmarks.part(i).y), 4, (255, 0, 0), -1)
             face_points.append((landmarks.part(i).x,landmarks.part(i).y))
         prediction_points.append(face_points)
-        '''
+        
     
-    cv2.rectangle(frame,(x1_max,y1_max),(x2_max,y2_max),green,3)
+    #cv2.rectangle(frame,(x1_max,y1_max),(x2_max,y2_max),green,3)
 
     cv2.imshow("Frame", frame)
 
